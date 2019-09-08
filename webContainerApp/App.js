@@ -24,16 +24,20 @@ export default class App extends Component<Props> {
 
   render() {
     const params = 'platform='+Platform.OS;
-    const sourceUri = 'http://romimate.com/';
-
+    const requestHeader = '"custom-app-header": "react-native-'+Platform.OS+'-app"';
+    const sourceUri = 'http://romimate.com';
+    console.log("requestHeader - "+requestHeader);
     return (
       <View style={styles.container}>
         <WebView          
-          source={{ uri: sourceUri }}
+          source={{ 
+            uri: sourceUri,
+            headers: {requestHeader}
+          }}
+          useWebKit={true}
           style={{ marginTop: 50 }} 
           javaScriptEnabled={true}
           originWhitelist={['*']}
-          allowFileAccess={true}
           onMessage={this.onMessage}
         />
       </View>
